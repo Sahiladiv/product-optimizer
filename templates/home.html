@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ product.details.brand }} Store | AI-Optimized Microsite</title>
+  <meta name="description" content="Explore top-rated {{ product.details.brand }} products like the {{ product.details.title }}. Shop aromatherapy candles, home décor, and more.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>{{ product.details.brand }}</h1>
+      <p>{{ product.catalog.category_path | join(" > ") }}</p>
+      <nav>
+        <a href="/">Home</a> |
+        <a href="/product/{{ product.asin }}">View Product</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <img src="{{ product.images.urls[0] }}" alt="{{ product.details.title }}" width="300">
+      <div>
+        <h2>{{ product.details.title }}</h2>
+        <p><strong>Price:</strong> ${{ product.details.price }}</p>
+        <p><strong>Rating:</strong> {{ product.rating.average_rating }} / 5 ({{ product.rating.total_ratings }} reviews)</p>
+        <a href="/product/{{ product.asin }}">See full product details →</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <h3>Why People Love This</h3>
+      <ul>
+        {% for feature in product.details.features %}
+          <li>{{ feature }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="reviews">
+      <h3>Top Reviews</h3>
+      {% for review in product.reviews[:3] %}
+        <div class="review">
+          <strong>{{ review.reviewer_name }}</strong> — ★ {{ review.rating }}<br>
+          <em>{{ review.title }}</em>
+          <p>{{ review.review_text }}</p>
+        </div>
+      {% endfor %}
+      <p><a href="/product/{{ product.asin }}">Read all reviews →</a></p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>&copy; 2025 {{ product.details.brand }} Microsite | Powered by Flask</p>
+  </footer>
+</body>
+</html>
