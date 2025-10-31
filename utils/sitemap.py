@@ -3,7 +3,7 @@ from datetime import datetime
 
 def generate_sitemap():
     today = datetime.utcnow().strftime('%Y-%m-%d')
-    base_url = "http://localhost:5000"
+    base_url = "https://product-optimizer.onrender.com/"
 
     urls = [
         {"loc": "/", "priority": "1.0"},
