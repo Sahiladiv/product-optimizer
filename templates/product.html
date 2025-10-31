@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{ product.details.title }}</title>
+  <meta name="description" content="{{ product.details.features[0] }}">
+  <script type="application/ld+json">
+    {{ product | tojson }}
+  </script>
+</head>
+<body>
+  <header>
+    <h1>{{ product.details.brand }}</h1>
+    <nav>
+      <a href="/">Home</a> |
+      <a href="/product/{{ product.asin }}">Product</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <h2>{{ product.details.title }}</h2>
+      <img src="{{ product.images.urls[0] }}" alt="{{ product.details.title }}" width="300">
+      <section>
+        <h3>Key Features</h3>
+        <ul>
+          {% for feature in product.details.features %}
+            <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h3>Customer Reviews</h3>
+        {% for review in product.reviews[:2] %}
+          <blockquote>
+            <strong>{{ review.reviewer_name }}</strong>: ★ {{ review.rating }}<br>
+            <p>{{ review.review_text }}</p>
+          </blockquote>
+        {% endfor %}
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 {{ product.details.brand }}</p>
+  </footer>
+</body>
+</html>
